@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080018" />
+  <title>Nuestra Galaxia | Carlos ❤️ Karla</title>
+  <style>
+:root{--pink:#ff4fa3;--violet:#7c4dff;--cyan:#55dcff;--text:#fff;--muted:#c9bedf}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;overflow:hidden;background:#030108;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}button{font:inherit}
+#galaxy{position:fixed;inset:0;width:100%;height:100%;display:block;background:radial-gradient(circle at 50% 45%,#180934 0,#06010e 45%,#010104 100%)}
+.nebula{position:fixed;inset:-20%;pointer-events:none;background:radial-gradient(ellipse at 20% 30%,rgba(101,45,255,.16),transparent 34%),radial-gradient(ellipse at 80% 60%,rgba(255,41,151,.13),transparent 30%);filter:blur(30px);animation:drift 16s ease-in-out infinite alternate}@keyframes drift{to{transform:translate3d(3%,-2%,0) scale(1.08)}}
+.overlay{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:22px;background:rgba(2,0,8,.62);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:.8s}.overlay.visible{opacity:1;pointer-events:auto}.glass{background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,.045));border:1px solid rgba(255,255,255,.18);box-shadow:0 18px 80px rgba(0,0,0,.36),inset 0 1px rgba(255,255,255,.1);backdrop-filter:blur(15px)}
+.welcome-card{width:min(620px,94vw);padding:46px 28px;border-radius:28px;text-align:center}.welcome-card h1{font-size:clamp(2.6rem,8vw,5.4rem);line-height:1;margin:.15em 0}.welcome-card h1 span{color:var(--pink);filter:drop-shadow(0 0 18px var(--pink));animation:beat 1.4s infinite}@keyframes beat{50%{transform:scale(1.12)}}.eyebrow{font-size:.76rem;letter-spacing:.24em;text-transform:uppercase;color:#d7b9ff}.welcome-card button,.letter-btn{border:0;border-radius:999px;padding:14px 24px;color:#fff;cursor:pointer;background:linear-gradient(90deg,var(--violet),var(--pink));box-shadow:0 8px 34px rgba(255,79,163,.32);transition:.25s}.welcome-card button:hover,.letter-btn:hover{transform:translateY(-2px) scale(1.02)}.welcome-card small{display:block;margin-top:14px;color:var(--muted)}
+.topbar{position:fixed;z-index:5;left:0;right:0;top:0;padding:22px clamp(18px,4vw,52px);display:flex;align-items:center;justify-content:space-between;pointer-events:none}.topbar strong,.topbar small{display:block}.topbar small{color:var(--muted);font-size:.72rem}.icon-btn{pointer-events:auto;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.2);color:#fff;background:rgba(255,255,255,.09);cursor:pointer;backdrop-filter:blur(12px)}.icon-btn.playing{box-shadow:0 0 24px rgba(255,79,163,.7);color:#ff9bcc}
+#content{position:fixed;inset:0;z-index:4;pointer-events:none;transition:opacity 1s}.hidden-ui{opacity:0}.hero-copy{position:absolute;left:clamp(20px,6vw,90px);top:18%;width:min(530px,84vw)}.hero-copy h2{font-family:Georgia,serif;font-weight:500;font-size:clamp(2.3rem,5vw,5rem);line-height:.98;margin:.15em 0 .25em;text-shadow:0 5px 30px #000}.dedication{max-width:480px;line-height:1.7;color:#e7dcf4}
+.counter{pointer-events:auto;position:absolute;left:clamp(20px,6vw,90px);bottom:6%;width:min(600px,88vw);border-radius:22px;padding:18px 20px}.counter h3{margin:0 0 12px;font-weight:500}.counter-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}.unit{text-align:center;padding:9px 4px;border-radius:12px;background:rgba(255,255,255,.06)}.unit b{display:block;font-size:clamp(1rem,2.5vw,1.5rem)}.unit span{font-size:.64rem;color:var(--muted);text-transform:uppercase}
+.memory-panel{position:absolute;right:clamp(20px,5vw,70px);top:26%;width:min(330px,82vw);padding:22px;border-radius:20px;transition:.35s}.memory-panel h3{font-size:1.55rem;margin:.3em 0}.memory-panel p{line-height:1.6;color:#dfd5ed}.planet-label{font-size:.69rem;text-transform:uppercase;letter-spacing:.16em;color:#bca3e8}.letter-btn{pointer-events:auto;position:absolute;right:clamp(20px,5vw,70px);bottom:7%}
+dialog{width:min(650px,92vw);border:1px solid rgba(255,255,255,.22);border-radius:24px;color:#fff;padding:34px;background:linear-gradient(145deg,#1a0d2e,#080410);box-shadow:0 25px 100px #000}dialog::backdrop{background:rgba(0,0,0,.74);backdrop-filter:blur(10px)}dialog h2{font-family:Georgia,serif;font-size:2.4rem;margin:.2em 0}.signature{text-align:right;font-family:Georgia,serif;font-size:1.15rem;color:#ffc2df}.close{position:absolute;right:16px;top:10px;border:0;background:none;color:#fff;font-size:2rem;cursor:pointer}
+#toast{position:fixed;left:50%;bottom:22px;z-index:30;transform:translate(-50%,30px);opacity:0;padding:11px 18px;border-radius:999px;background:rgba(10,4,24,.88);border:1px solid rgba(255,255,255,.18);transition:.4s;pointer-events:none}#toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:760px){.hero-copy{top:14%}.memory-panel{top:auto;right:18px;left:18px;bottom:25%;width:auto}.counter{left:18px;bottom:7%;width:calc(100% - 36px);padding:12px}.counter-grid{grid-template-columns:repeat(3,1fr)}.letter-btn{right:18px;bottom:20%}.hero-copy .dedication{display:none}}
+
+</style>
+</head>
+<body>
+  <canvas id="galaxy"></canvas>
+  <div class="nebula"></div>
+
+  <section id="welcome" class="overlay visible">
+    <div class="glass welcome-card">
+      <p class="eyebrow">Una historia escrita entre las estrellas</p>
+      <h1>Carlos <span>❤</span> Karla</h1>
+      <p>Desde el 2 de mayo de 2025</p>
+      <button id="enterBtn">Entrar a nuestra galaxia</button>
+      <small>La música comienza después de tocar el botón.</small>
+    </div>
+  </section>
+
+  <header class="topbar">
+    <div>
+      <strong>Carlos ❤ Karla</strong>
+      <small>Nuestra galaxia infinita</small>
+    </div>
+    <button id="musicBtn" class="icon-btn" aria-label="Activar o pausar música">♫</button>
+  </header>
+
+  <main id="content" class="hidden-ui">
+    <section class="hero-copy">
+      <p class="eyebrow">Juntos desde el 2 de mayo de 2025</p>
+      <h2>Mi lugar favorito<br>siempre será contigo.</h2>
+      <p class="dedication">Karla, desde que llegaste, cada estrella tiene un motivo para brillar.</p>
+    </section>
+
+    <section class="counter glass" aria-label="Contador de tiempo juntos">
+      <h3>Nuestro tiempo juntos</h3>
+      <div id="counterGrid" class="counter-grid"></div>
+    </section>
+
+    <section class="memory-panel glass">
+      <span class="planet-label">Explora los planetas</span>
+      <h3 id="memoryTitle">Nuestro universo</h3>
+      <p id="memoryText">Haz clic en los planetas de colores para descubrir mensajes especiales.</p>
+    </section>
+
+    <button id="letterBtn" class="letter-btn">Abrir carta de amor 💌</button>
+  </main>
+
+  <dialog id="letterDialog">
+    <button id="closeLetter" class="close">×</button>
+    <p class="eyebrow">Para Karla</p>
+    <h2>Mi amor infinito</h2>
+    <p>Desde el 2 de mayo de 2025 comenzó la aventura más hermosa de mi vida. Contigo aprendí que el amor no solamente se dice: se cuida, se demuestra y se elige todos los días.</p>
+    <p>Me encanta tu sonrisa, tu voz, tu forma de mirar la vida y la paz que encuentro cuando estoy a tu lado. Aun en los días difíciles, mi corazón sigue sabiendo que eres tú.</p>
+    <p>Quiero seguir construyendo recuerdos, cumplir sueños y recorrer contigo cada rincón de esta galaxia llamada vida.</p>
+    <p class="signature">Te amo infinitamente.<br><strong>— Carlos</strong></p>
+  </dialog>
+
+  <div id="toast" role="status"></div>
+
+  <audio id="bgMusic" loop preload="auto">
+    <source src="assets/music/nuestra-cancion.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script>
+(() => {
+  const canvas = document.getElementById('galaxy');
+  const ctx = canvas.getContext('2d');
+  let w, h, dpr, mouseX = 0, mouseY = 0, time = 0;
+  const stars = [], dust = [], planets = [], shooting = [];
+  const messages = [
+    ['Nuestro comienzo','El 2 de mayo de 2025 comenzó la historia que cambió mi universo.'],
+    ['Tu sonrisa','Tu sonrisa tiene la luz suficiente para iluminar hasta mis días más oscuros.'],
+    ['Nuestro hogar','Mi lugar favorito no es un sitio: es cualquier lugar donde estés tú.'],
+    ['Nuestros sueños','Quiero cumplir contigo cada sueño que todavía no nos atrevemos a imaginar.'],
+    ['Por siempre','Entre millones de estrellas, volvería a encontrarte y elegirte una y mil veces.']
+  ];
+
+  function resize(){
+    dpr=Math.min(devicePixelRatio||1,2); w=innerWidth; h=innerHeight;
+    canvas.width=w*dpr; canvas.height=h*dpr; canvas.style.width=w+'px'; canvas.style.height=h+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0); init();
+  }
+  function rand(a,b){return a+Math.random()*(b-a)}
+  function init(){
+    stars.length=0; dust.length=0; planets.length=0;
+    const n=Math.min(1600,Math.floor(w*h/620));
+    for(let i=0;i<n;i++) stars.push({x:rand(-w,w),y:rand(-h,h),z:rand(1,1200),p:rand(.35,1.6),tw:rand(0,6.28)});
+    for(let i=0;i<450;i++){const a=Math.random()*Math.PI*8,r=Math.pow(Math.random(),.55)*Math.min(w,h)*.68;dust.push({a,r,z:rand(.25,1),s:rand(.5,2.2),c:Math.random()>.52?'255,80,180':'120,90,255'});}
+    const colors=['#ff5fae','#7d68ff','#4ee8ff','#ffc85c','#db79ff'];
+    for(let i=0;i<5;i++) planets.push({a:i*1.23+.35,r:Math.min(w,h)*(0.17+i*.07),size:12+i*3,color:colors[i],speed:.00009+i*.000025,index:i,x:0,y:0});
+  }
+  function drawHeart(cx,cy,scale,alpha){
+    ctx.save();ctx.translate(cx,cy);ctx.scale(scale,scale);ctx.beginPath();ctx.moveTo(0,7);ctx.bezierCurveTo(-25,-10,-28,-34,-8,-39);ctx.bezierCurveTo(3,-42,10,-34,14,-26);ctx.bezierCurveTo(19,-35,28,-42,40,-38);ctx.bezierCurveTo(60,-31,56,-7,32,10);ctx.lineTo(14,25);ctx.closePath();
+    const g=ctx.createRadialGradient(10,-12,2,10,-12,45);g.addColorStop(0,`rgba(255,220,241,${alpha})`);g.addColorStop(.35,`rgba(255,64,158,${alpha})`);g.addColorStop(1,'rgba(100,20,120,0)');ctx.fillStyle=g;ctx.shadowColor='#ff4fa3';ctx.shadowBlur=35;ctx.fill();ctx.restore();
+  }
+  function animate(){
+    time=performance.now();ctx.clearRect(0,0,w,h);
+    const cx=w/2+mouseX*18, cy=h/2+mouseY*12;
+    const bg=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(w,h)*.72);bg.addColorStop(0,'rgba(54,13,92,.42)');bg.addColorStop(.45,'rgba(13,3,32,.2)');bg.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
+
+    for(const s of stars){s.z-=2.1;if(s.z<1){s.z=1200;s.x=rand(-w,w);s.y=rand(-h,h)}const k=420/s.z,x=cx+s.x*k,y=cy+s.y*k;if(x<0||x>w||y<0||y>h)continue;const size=Math.max(.25,(1-s.z/1200)*2.1*s.p);const a=.35+.55*Math.abs(Math.sin(time*.001+s.tw));ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.beginPath();ctx.arc(x,y,size,0,6.28);ctx.fill();}
+
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(time*.000025);ctx.globalCompositeOperation='lighter';for(const d of dust){const a=d.a+time*.000015*d.z;const squash=.38;const x=Math.cos(a)*d.r,y=Math.sin(a)*d.r*squash;ctx.fillStyle=`rgba(${d.c},${.12+d.z*.25})`;ctx.beginPath();ctx.arc(x,y,d.s*d.z,0,6.28);ctx.fill();}ctx.restore();ctx.globalCompositeOperation='source-over';
+
+    const pulse=1+Math.sin(time*.003)*.06;drawHeart(cx-10,cy-8,1.45*pulse,.95);
+    ctx.save();ctx.textAlign='center';ctx.fillStyle='#fff';ctx.shadowColor='#ff7abb';ctx.shadowBlur=15;ctx.font=`600 ${Math.max(18,Math.min(34,w*.026))}px Georgia`;ctx.fillText('Carlos  ❤  Karla',cx,cy+74);ctx.restore();
+
+    for(const p of planets){p.a+=p.speed*16.7;const x=cx+Math.cos(p.a)*p.r;const y=cy+Math.sin(p.a)*p.r*.38;p.x=x;p.y=y;ctx.strokeStyle='rgba(255,255,255,.055)';ctx.beginPath();ctx.ellipse(cx,cy,p.r,p.r*.38,0,0,6.28);ctx.stroke();const g=ctx.createRadialGradient(x-p.size*.3,y-p.size*.35,1,x,y,p.size*1.6);g.addColorStop(0,'#fff');g.addColorStop(.16,p.color);g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,p.size*1.6,0,6.28);ctx.fill();}
+
+    if(Math.random()<.006)shooting.push({x:rand(0,w*.7),y:rand(0,h*.35),vx:rand(7,12),vy:rand(3,6),life:1});
+    for(let i=shooting.length-1;i>=0;i--){const s=shooting[i];s.x+=s.vx;s.y+=s.vy;s.life-=.018;const lg=ctx.createLinearGradient(s.x-s.vx*9,s.y-s.vy*9,s.x,s.y);lg.addColorStop(0,'rgba(255,255,255,0)');lg.addColorStop(1,`rgba(255,255,255,${s.life})`);ctx.strokeStyle=lg;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(s.x-s.vx*9,s.y-s.vy*9);ctx.lineTo(s.x,s.y);ctx.stroke();if(s.life<=0)shooting.splice(i,1)}
+    requestAnimationFrame(animate);
+  }
+
+  canvas.addEventListener('pointermove',e=>{mouseX=(e.clientX/w-.5)*2;mouseY=(e.clientY/h-.5)*2});
+  canvas.addEventListener('click',e=>{let best=null,dist=50;for(const p of planets){const d=Math.hypot(e.clientX-p.x,e.clientY-p.y);if(d<dist){dist=d;best=p}}if(best){document.getElementById('memoryTitle').textContent=messages[best.index][0];document.getElementById('memoryText').textContent=messages[best.index][1];showToast('Planeta descubierto ✨')}});
+
+  const start=new Date(2025,4,2,0,0,0);
+  function updateCounter(){
+    const now=new Date();let years=now.getFullYear()-start.getFullYear();let anchor=new Date(start);anchor.setFullYear(start.getFullYear()+years);if(anchor>now){years--;anchor.setFullYear(start.getFullYear()+years)}let months=0;while(true){const n=new Date(anchor);n.setMonth(n.getMonth()+1);if(n<=now){anchor=n;months++}else break}let sec=Math.floor((now-anchor)/1000);const days=Math.floor(sec/86400);sec%=86400;const hours=Math.floor(sec/3600);sec%=3600;const minutes=Math.floor(sec/60);const seconds=sec%60;const vals=[[years,'años'],[months,'meses'],[days,'días'],[hours,'horas'],[minutes,'min'],[seconds,'seg']];document.getElementById('counterGrid').innerHTML=vals.map(v=>`<div class="unit"><b>${String(v[0]).padStart(2,'0')}</b><span>${v[1]}</span></div>`).join('');
+  }
+  setInterval(updateCounter,1000);updateCounter();
+
+  const welcome=document.getElementById('welcome'),content=document.getElementById('content'),audio=document.getElementById('bgMusic'),musicBtn=document.getElementById('musicBtn');
+  document.getElementById('enterBtn').onclick=()=>{welcome.classList.remove('visible');content.classList.remove('hidden-ui');audio.play().then(()=>musicBtn.classList.add('playing')).catch(()=>showToast('Agrega tu MP3 en assets/music/nuestra-cancion.mp3'));};
+  musicBtn.onclick=()=>{if(audio.paused){audio.play().then(()=>musicBtn.classList.add('playing')).catch(()=>showToast('No se encontró la canción MP3'));}else{audio.pause();musicBtn.classList.remove('playing')}};
+  const dialog=document.getElementById('letterDialog');document.getElementById('letterBtn').onclick=()=>dialog.showModal();document.getElementById('closeLetter').onclick=()=>dialog.close();
+  function showToast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('show');clearTimeout(window.__toast);window.__toast=setTimeout(()=>el.classList.remove('show'),2500)}
+  addEventListener('resize',resize);resize();animate();
+})();
+
+</script>
+</body>
+</html>
